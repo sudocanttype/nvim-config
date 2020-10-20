@@ -12,10 +12,14 @@ Plug 'junegunn/fzf.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tommcdo/vim-exchange'
+Plug 'mattn/emmet-vim'
+Plug 'turbio/bracey.vim'
+Plug 'Yggdroot/indentLine'
+Plug 'tpope/vim-commentary'
 call plug#end()
 "config
 
-
+set number
 set encoding=utf8
 
 "FOnt/Theme
@@ -137,3 +141,5 @@ nmap cx <Plug>(Exchange)
 xmap X <Plug>(Exchange)
 nmap cxc <Plug>(ExchangeClear)
 nmap cxx <Plug>(ExchangeLine)
+"Emmet
+let g:user_emmet_leader_key=','
