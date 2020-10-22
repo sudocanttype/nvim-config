@@ -21,7 +21,8 @@ call plug#end()
 
 set number
 set encoding=utf8
-
+set nowrap
+set autoindent
 "FOnt/Theme
 if (has("termguicolors"))
 	set termguicolors
@@ -143,3 +144,7 @@ nmap cxc <Plug>(ExchangeClear)
 nmap cxx <Plug>(ExchangeLine)
 "Emmet
 let g:user_emmet_leader_key=','
+
+"Braceys
+let g:bracey_server_allow_remote_connections=1
+let g:bracey_server_port=1111
