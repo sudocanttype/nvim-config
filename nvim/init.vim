@@ -19,6 +19,8 @@ Plug 'tpope/vim-commentary'
 call plug#end()
 "config
 
+set conceallevel=0
+
 set number
 set encoding=utf8
 set nowrap
@@ -148,3 +150,5 @@ let g:user_emmet_leader_key=','
 "Braceys
 let g:bracey_server_allow_remote_connections=1
 let g:bracey_server_port=1111
+let g:NERDTreeIgnore = ['^node_modules$']
+let g:indentLine_fileTypeExclude = ['json']
