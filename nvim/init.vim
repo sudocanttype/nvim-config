@@ -32,6 +32,10 @@ endif
 syntax enable
 colorscheme dracula
 
+"Use enter to open a new line below, and Shift Enter for new line NOT in insert mode
+nmap <CR> o 
+ 
+
 "NerdTree shit
 let g:NERDTreeShowHidden = 0
 let g:NERDTreeMinimalUI = 1
@@ -42,6 +46,10 @@ let g:NERDTreeNotificationThreshold = 500
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Toggle
 nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+
+"Go to home direct. with Home
+command Home NERDTree /home/oscar 
+
 
 " use alt+hjkl to move between split/vsplit panels
 tnoremap <A-h> <C-\><C-n><C-w>h
