@@ -22,6 +22,7 @@ call plug#end()
 set conceallevel=0
 
 set number
+set relativenumber 
 set encoding=utf8
 set nowrap
 set autoindent
@@ -160,3 +161,6 @@ let g:bracey_server_allow_remote_connections=1
 let g:bracey_server_port=1111
 let g:NERDTreeIgnore = ['^node_modules$']
 let g:indentLine_fileTypeExclude = ['json']
+
+"COC
+hi Pmenu guibg=Green
