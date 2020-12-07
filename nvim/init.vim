@@ -1,4 +1,5 @@
 call plug#begin("~/.vim/plugged")
+
 "Plugins
 
 Plug 'dracula/vim'
@@ -16,11 +17,13 @@ Plug 'mattn/emmet-vim'
 Plug 'turbio/bracey.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-commentary'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-obsession'
 call plug#end()
 "config
 
 set conceallevel=0
-
+set nocompatible
 set number
 set relativenumber 
 set encoding=utf8
@@ -34,9 +37,13 @@ syntax enable
 colorscheme dracula
 
 "Use enter to open a new line below, and Shift Enter for new line NOT in insert mode
-nmap <CR> o 
- 
+" nmap <CR> o <BS>
 
+"Make the arrow keys resize current window
+nmap <Up> :res +5 <CR>
+nmap <Down> :res-5<CR>
+nmap <Left> :vertical resize -5<CR>
+nmap <Right> :vertical resize +5<CR>
 "NerdTree shit
 let g:NERDTreeShowHidden = 0
 let g:NERDTreeMinimalUI = 1
@@ -51,7 +58,8 @@ nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 "Go to home direct. with Home
 command Home NERDTree /home/oscar 
 
-
+"load saved session from home screen
+command Sess :source Session.vim | :exe 'normal '
 " use alt+hjkl to move between split/vsplit panels
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
@@ -164,3 +172,4 @@ let g:indentLine_fileTypeExclude = ['json']
 
 "COC
 hi Pmenu guibg=Green
+ 
