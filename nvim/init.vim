@@ -1,5 +1,4 @@
 call plug#begin("~/.vim/plugged")
-
 "Plugins
 
 Plug 'dracula/vim'
@@ -19,6 +18,8 @@ Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-commentary'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-obsession'
+Plug 'dense-analysis/ale'
+Plug 'jaxbot/semantic-highlight.vim'
 call plug#end()
 "config
 
@@ -33,11 +34,10 @@ set autoindent
 if (has("termguicolors"))
 	set termguicolors
 endif
-syntax enable
 colorscheme dracula
 
 "Use enter to open a new line below, and Shift Enter for new line NOT in insert mode
-" nmap <CR> o <BS>
+nmap <CR> o <BS>
 
 "Make the arrow keys resize current window
 nmap <Up> :res +5 <CR>
@@ -60,6 +60,9 @@ command Home NERDTree /home/oscar
 
 "load saved session from home screen
 command Sess :source Session.vim | :exe 'normal '
+
+"Save with admin perms
+command Susave :w !sudo tee %<CR>
 " use alt+hjkl to move between split/vsplit panels
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
@@ -105,6 +108,7 @@ let g:startify_custom_header =
 			\ 'startify#center(startify#fortune#cowsay())'
 
 let g:startify_bookmarks = [ {'c': '~/.config/nvim/init.vim'}]
+nnoremap <c-h> :Startify<CR>
 "Search Shit
 nnoremap <C-p> :FZF<CR>
 let g:fzf_action = {
@@ -162,7 +166,6 @@ xmap X <Plug>(Exchange)
 nmap cxc <Plug>(ExchangeClear)
 nmap cxx <Plug>(ExchangeLine)
 "Emmet
-let g:user_emmet_leader_key=','
 
 "Braceys
 let g:bracey_server_allow_remote_connections=1
@@ -172,4 +175,15 @@ let g:indentLine_fileTypeExclude = ['json']
 
 "COC
 hi Pmenu guibg=Green
- 
+"python with virtualenv support
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  execfile(activate_this, dict(__file__=activate_this))
+EOF
+
+"python syntax
+au BufReadPost,BufNewFile *.py,*.pyc,*.js SemanticHighlight
