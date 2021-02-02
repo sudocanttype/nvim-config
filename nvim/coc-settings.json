@@ -1,0 +1,9 @@
+{
+	"emmet.includeLanguages":{
+		"htmldjango": "html",
+		"javascript": "javascriptreact"
+		
+
+	},
+	"diagnostic.displayByAle": true
+}

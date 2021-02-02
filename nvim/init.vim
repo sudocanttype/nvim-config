@@ -1,3 +1,4 @@
+let g:ale_disable_lsp = 1
 call plug#begin("~/.vim/plugged")
 "Plugins
 
@@ -20,6 +21,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-obsession'
 Plug 'dense-analysis/ale'
 Plug 'jaxbot/semantic-highlight.vim'
+Plug 'tpope/vim-eunuch'
+Plug 'airblade/vim-gitgutter'
+Plug '907th/vim-auto-save'
 call plug#end()
 "config
 
@@ -175,15 +179,16 @@ let g:indentLine_fileTypeExclude = ['json']
 
 "COC
 hi Pmenu guibg=Green
-"python with virtualenv support
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
-
 "python syntax
 au BufReadPost,BufNewFile *.py,*.pyc,*.js SemanticHighlight
+let g:ale_linters = {'python': ['pylint', 'flake8', 'mypy','pyright']}
+let g:ale_echo_msg_format='[%linter%] [%severity%] %code% %s'
+let g:ale_python_pylint_options = '--rcfile ~/.config/.pylintrc'
+let g:ale_virtualenv_dir_names = []
+let g:ale_fixers = {'python':['add_blank_lines_for_python_control_statements', 'autoimport', 'autopep8', 'isort', 'remove_trailing_lines', 'trim_whitespace']}
+let g:ale_fix_on_save = 1
+
+"Auto save
+let g:auto_save_write_all_buffers = 1
+let g:auto_save = 0
+au BufReadPost,BufNewFile *.js,*.css,*.scss let b:auto_save = 1
