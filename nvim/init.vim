@@ -190,5 +190,5 @@ let g:ale_fix_on_save = 1
 
 "Auto save
 let g:auto_save_write_all_buffers = 1
-let g:auto_save = 0
-au BufReadPost,BufNewFile *.js,*.css,*.scss let b:auto_save = 1
+let g:auto_save = 1
+" au BufReadPost,BufNewFile *.js,*.css,*.scss let b:auto_save = 1
