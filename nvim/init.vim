@@ -9,7 +9,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs' 
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim' 
 Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tommcdo/vim-exchange'
@@ -24,7 +24,11 @@ Plug 'jaxbot/semantic-highlight.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'airblade/vim-gitgutter'
 Plug '907th/vim-auto-save'
+Plug 'pangloss/vim-javascript'
+Plug 'rust-lang/rust.vim'
+Plug 'udalov/kotlin-vim'
 call plug#end()
+
 "config
 
 set conceallevel=0
@@ -34,6 +38,8 @@ set relativenumber
 set encoding=utf8
 set nowrap
 set autoindent
+filetype plugin indent on
+syntax enable
 "FOnt/Theme
 if (has("termguicolors"))
 	set termguicolors
@@ -54,6 +60,7 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
 let g:NERDTreeStatusline = ''
 let g:NERDTreeNotificationThreshold = 500
+let g:NERDTreeChDirMode = 2
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Toggle
@@ -61,6 +68,7 @@ nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 
 "Go to home direct. with Home
 command Home NERDTree /home/oscar 
+command Base NERDTree $PWD
 
 "load saved session from home screen
 command Sess :source Session.vim | :exe 'normal '
@@ -88,7 +96,7 @@ tnoremap <Esc> <C-\><C-n>
 au BufEnter * if &buftype == 'terminal' | :startinsert | endif
 " open terminal on ctrl+n
 function! OpenTerminal()
-	split term://bash
+	split term://fish
 	resize 10
 endfunction
 nnoremap <c-n> :call OpenTerminal()<CR>
@@ -133,23 +141,30 @@ if has("patch-8.1.1564")
 else
 	set signcolumn=yes
 endif
-inoremap <silent><expr> <TAB>
-			\ pumvisible() ? "\<C-n>" :
-			\ <SID>check_back_space() ? "\<TAB>" :
-			\ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~# '\s'
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+" Use <c-space> to trigger completion
 if has('nvim')
-	inoremap <silent><expr> <c-space> coc#refresh()
+  inoremap <silent><expr> <c-space> coc#refresh()
 else
-	inoremap <silent><expr> <c-@> coc#refresh()
+  inoremap <silent><expr> <c-@> coc#refresh()
 endif
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-			\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 
 let g:lightline = {
 			\ 'colorscheme': 'wombat',
@@ -188,7 +203,14 @@ let g:ale_virtualenv_dir_names = []
 let g:ale_fixers = {'python':['add_blank_lines_for_python_control_statements', 'autoimport', 'autopep8', 'isort', 'remove_trailing_lines', 'trim_whitespace']}
 let g:ale_fix_on_save = 1
 
+"this shit does not work on kotlin 120% cpu usage
+let g:ale_pattern_options = {
+\   '.*\.kt$': {'ale_enabled': 0},
+\}
+
+
 "Auto save
 let g:auto_save_write_all_buffers = 1
 let g:auto_save = 1
 " au BufReadPost,BufNewFile *.js,*.css,*.scss let b:auto_save = 1
+" JS syntax
