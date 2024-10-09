@@ -8,7 +8,9 @@ idk, what i have set up for vim/nvim rn
  - vim-plug
  - Jedi (for python support)
  - FZF (for fuzzy-finding)
- - fortune (for the start screen)
+ - jedi-language-server (either install via pip or arch extra repo)
+
+
 
 ## Info
 For the ton of extensions, use https://github.com/junegunn/vim-plug
