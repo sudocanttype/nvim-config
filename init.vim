@@ -27,7 +27,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'pangloss/vim-javascript'
 Plug 'rust-lang/rust.vim'
 Plug 'udalov/kotlin-vim'
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 call plug#end()
 
@@ -210,4 +210,5 @@ let g:auto_save = 1
 " JS syntax
 "
 " Indent Blankline
+lua require('treesitter')
 lua require('indent_blankline')
