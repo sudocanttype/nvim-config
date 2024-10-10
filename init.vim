@@ -40,9 +40,9 @@ Plug 'mhinz/vim-startify'
 Plug 'airblade/vim-gitgutter'
 
 " Debugger (Commented Out)
-" Plug 'mfussenegger/nvim-dap'
-" Plug 'nvim-neotest/nvim-nio'
-" Plug 'rcarriga/nvim-dap-ui'
+Plug 'mfussenegger/nvim-dap'
+Plug 'nvim-neotest/nvim-nio'
+Plug 'rcarriga/nvim-dap-ui'
 "
 call plug#end()
 
