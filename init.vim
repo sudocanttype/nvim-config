@@ -2,33 +2,48 @@ let g:ale_disable_lsp = 1
 call plug#begin("~/.vim/plugged")
 "Plugins
 
-Plug 'lukas-reineke/indent-blankline.nvim'
+" Appearance
 Plug 'dracula/vim'
-Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-surround'
-Plug 'itchyny/lightline.vim'
-Plug 'jiangmiao/auto-pairs' 
-Plug 'mhinz/vim-startify'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim' 
 Plug 'ryanoasis/vim-devicons'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'tommcdo/vim-exchange'
+Plug 'itchyny/lightline.vim'
+Plug 'lukas-reineke/indent-blankline.nvim'
+
+" File Navigation
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" Editing Enhancements
+Plug 'tpope/vim-surround'
+Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
-Plug 'turbio/bracey.vim'
 Plug 'tpope/vim-commentary'
-Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-obsession'
+Plug 'turbio/bracey.vim'
+Plug 'tommcdo/vim-exchange'
 Plug 'dense-analysis/ale'
 Plug 'jaxbot/semantic-highlight.vim'
 Plug 'tpope/vim-eunuch'
-Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-obsession'
+
 " Plug '907th/vim-auto-save'
+"
+" Language Support
+Plug 'sheerun/vim-polyglot'
 Plug 'pangloss/vim-javascript'
-Plug 'rust-lang/rust.vim'
-Plug 'udalov/kotlin-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+" Start-Up
+Plug 'mhinz/vim-startify'
+
+" Git Integration
+Plug 'airblade/vim-gitgutter'
+
+" Debugger (Commented Out)
+" Plug 'mfussenegger/nvim-dap'
+" Plug 'nvim-neotest/nvim-nio'
+" Plug 'rcarriga/nvim-dap-ui'
+"
 call plug#end()
 
 "config
