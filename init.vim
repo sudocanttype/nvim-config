@@ -32,6 +32,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'pangloss/vim-javascript'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'lervag/vimtex'
 
 " Start-Up
 Plug 'mhinz/vim-startify'
@@ -167,6 +168,47 @@ else
 endif
 
 hi Pmenu guibg=Green
+
+" Latex support
+let g:vimtex_view_method = 'zathura'
+"let g:vimtex_view_general_viewer = 'okular'
+"let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+
+augroup latexFile
+    autocmd!
+    autocmd FileType tex execute 'set wrap'
+    autocmd FileType tex execute 'VimtexCompile'
+    autocmd FileType tex execute 'nmap <localleader>v <plug>(vimtex-view)'
+augroup END
+
+let s:wrapenabled = 0
+function! ToggleWrap()
+  set wrap nolist
+  if s:wrapenabled
+    set nolinebreak
+    unmap j
+    unmap k
+    unmap 0
+    unmap ^
+    unmap $
+    let s:wrapenabled = 0
+  else
+    set linebreak
+    nnoremap j gj
+    nnoremap k gk
+    nnoremap 0 g0
+    nnoremap ^ g^
+    nnoremap $ g$
+    vnoremap j gj
+    vnoremap k gk
+    vnoremap 0 g0
+    vnoremap ^ g^
+    vnoremap $ g$
+    let s:wrapenabled = 1
+  endif
+endfunction
+map <leader>w :call ToggleWrap()<CR>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " START-UP
