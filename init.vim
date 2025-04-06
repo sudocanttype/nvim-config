@@ -25,7 +25,7 @@ Plug 'jaxbot/semantic-highlight.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-obsession'
 
-" Plug '907th/vim-auto-save'
+Plug '907th/vim-auto-save'
 "
 " Language Support
 Plug 'sheerun/vim-polyglot'
@@ -170,15 +170,19 @@ endif
 hi Pmenu guibg=Green
 
 " Latex support
+let g:auto_save = 0
 let g:vimtex_view_method = 'zathura'
 "let g:vimtex_view_general_viewer = 'okular'
 "let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+"
 
 augroup latexFile
     autocmd!
     autocmd FileType tex execute 'set wrap'
     autocmd FileType tex execute 'VimtexCompile'
     autocmd FileType tex execute 'nmap <localleader>v <plug>(vimtex-view)'
+    au FileType tex let b:auto_save_events = ["InsertLeave", "TextChangedI", "TextChanged", "CursorHoldI"]
+    au FileType tex let b:auto_save = 1
 augroup END
 
 let s:wrapenabled = 0
@@ -207,7 +211,7 @@ function! ToggleWrap()
     let s:wrapenabled = 1
   endif
 endfunction
-map <leader>w :call ToggleWrap()<CR>
+map <leader>l :call ToggleWrap()<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
