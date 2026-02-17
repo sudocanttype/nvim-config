@@ -9,6 +9,7 @@ idk, what i have set up for vim/nvim rn
  - Jedi (for python support)
  - FZF (for fuzzy-finding)
  - jedi-language-server (either install via pip or arch extra repo)
+ - debugpy (installed globally)
 
 
 
