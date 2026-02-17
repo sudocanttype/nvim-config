@@ -12,6 +12,12 @@ dap.configurations.python = {
   {
     type = 'python';
     request = 'launch';
+    name = "Launch main2";
+    program = "main2.py";
+  },
+  {
+    type = 'python';
+    request = 'launch';
     name = "Launch file (virtualenv python)";
     program = "${file}";
     pythonPath = function()
