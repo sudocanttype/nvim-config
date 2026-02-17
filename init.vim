@@ -289,6 +289,9 @@ nnoremap <c-d>b :DapToggleBreakpoint <CR>
 " Run to cursor
 nnoremap <c-d>c :lua require('dap').run_to_cursor() <CR>
 
+" Restart 
+nnoremap <c-d>r :lua require('dap').restart() <CR>
+
 " Continue Debugging
 nnoremap <F5> :DapContinue <CR>
 
