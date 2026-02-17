@@ -44,6 +44,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'mfussenegger/nvim-dap'
 Plug 'nvim-neotest/nvim-nio'
 Plug 'rcarriga/nvim-dap-ui'
+Plug 'mfussenegger/nvim-dap-python'
 "
 call plug#end()
 
@@ -88,6 +89,7 @@ let g:lightline = {
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 lua require('treesitter')
 lua require('indent_blankline')
+lua require("dap-python").setup("python3")
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -103,7 +105,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 
 "Go to home direct. with Home
-command Home NERDTree /home/oscar 
+command Home NERDTree ~
 command Base NERDTree $PWD
 
 let g:NERDTreeIgnore = ['^node_modules$']
@@ -272,3 +274,37 @@ function! OpenTerminal()
 	resize 10
 endfunction
 nnoremap <c-n> :call OpenTerminal()<CR>
+
+" Debugger stuff
+" Start Debugging
+nnoremap <c-d> :lua require('dap').set_exception_breakpoints({ "all" }) <CR>
+nnoremap <c-d> :DapNew <CR>
+nnoremap <c-d> :lua require("dapui").setup() require('dapui').open() <CR>
+" nnoremap <c-d> :lua require('dapui').open() <CR>
+
+" Toggle Breakpoint
+nnoremap <c-d>b :DapToggleBreakpoint <CR>
+
+" Run to cursor
+nnoremap <c-d>b :lua require('dap').run_to_cursor() <CR>
+
+" Continue Debugging
+nnoremap <F5> :DapContinue <CR>
+
+" Step Into
+nnoremap <F10> :DapStepInto <CR>
+
+" Step Over
+nnoremap <F9> :DapStepOver <CR>
+
+" Step Out
+nnoremap <S-F10> :DapStepOut <CR>
+
+" Terminate Debugging
+nnoremap <c-d>q :DapTerminate <CR>
+nnoremap <c-d>q :lua require('dapui').close() <CR>
+
+" List Breakpoints
+nnoremap <S-F5> :lua require('dap').list_breakpoints() <CR>
+
+" Set Exception Breakpoints
