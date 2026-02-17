@@ -89,6 +89,7 @@ let g:lightline = {
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 lua require('treesitter')
 lua require('indent_blankline')
+lua require('dap_config')
 lua require("dap-python").setup("python3")
 
 
@@ -286,7 +287,7 @@ nnoremap <c-d> :lua require("dapui").setup() require('dapui').open() <CR>
 nnoremap <c-d>b :DapToggleBreakpoint <CR>
 
 " Run to cursor
-nnoremap <c-d>b :lua require('dap').run_to_cursor() <CR>
+nnoremap <c-d>c :lua require('dap').run_to_cursor() <CR>
 
 " Continue Debugging
 nnoremap <F5> :DapContinue <CR>
