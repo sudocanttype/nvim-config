@@ -67,6 +67,7 @@ set cmdheight=2
 set updatetime=300
 set shortmess+=c
 set signcolumn=auto
+set ignorecase
 " open new split panes to right and below
 set splitright
 set splitbelow
