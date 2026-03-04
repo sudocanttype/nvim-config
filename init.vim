@@ -285,8 +285,10 @@ nnoremap <c-d> :lua require("dapui").setup() require('dapui').open() <CR>
 " nnoremap <c-d> :lua require('dapui').open() <CR>
 
 " Toggle Breakpoint
-nnoremap <c-d>b :DapToggleBreakpoint <CR>
+" nnoremap <c-d>b :DapToggleBreakpoint <CR>
 
+" Set breakpoint 
+nnoremap <c-d>b :lua require('dap').set_breakpoint(vim.fn.input('Input Conitional: ')) <CR>
 " Run to cursor
 nnoremap <c-d>c :lua require('dap').run_to_cursor() <CR>
 
