@@ -251,7 +251,7 @@ nmap <Right> :vertical resize +5<CR>
 "NerdTree shit
 
 "load saved session from home screen
-command Sess :source Session.vim | :exe 'normal '
+command Sess :source Session.vim | :exe 'normal'
 
 "Save with admin perms
 command Susave :w !sudo tee %<CR>
