@@ -227,9 +227,8 @@ let g:startify_custom_header_quotes = [
 			\ ['You fucking worthless braindead scumfuck bastard pile of trash mental dickface that should be gunned down in the street like the degenerate you are.'],
 			\ ['Thomas Had Never Seen Such Bullshit Code Before'],
 			\ ['He’s making a database.', 'He’s sorting it twice.', 'SELECT * from contacts WHERE', 'behavior = nice', 'SQL Clause is coming to town!'],
-			\ ['No one has asked this question on Stack Overflow yet.', '' , 'I am so fucked'],
-			\ ['Errors are red', 'My screen is blue', 'Someone please help me', 'I just deleted sys32'],
-			\ {-> systemlist('')}
+			\ ['No one has asked this question on Stack Overflow yet.', '...' , 'I am so fucked'],
+			\ ['Errors are red', 'My screen is blue', 'Someone please help me', 'I just deleted sys32']
 			\]
 
 let g:startify_custom_footer =startify#center(['', '*bashes head repeatedly against keyboard*'])
