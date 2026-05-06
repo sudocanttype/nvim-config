@@ -37,7 +37,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'pangloss/vim-javascript'
 " Completion
 Plug 'ms-jpq/coq_nvim'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/.nvim', {'branch': 'release'}
 Plug 'lervag/vimtex'
 
 " Start-Up
@@ -86,17 +86,7 @@ let g:lightline = {
 			\ 'colorscheme': 'wombat',
 			\ 'active': {
 			\   'left': [ [ 'mode', 'paste' ],
-			\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-			\ },
-			\ 'component': {
-			\   'lsp_warnings': 'lightline_lsp#warnings',
-			\   'lsp_errors':   'lightline_lsp#errors',
-			\   'lsp_ok':       'lightline_lsp#ok',
-			\ },
-			\ 'component_type': {
-			\   'lsp_warnings': 'warning',
-			\   'lsp_errors':   'error',
-			\   'lsp_ok':       'middle',
+			\             [ 'readonly', 'filename', 'modified' ] ]
 			\ },
 			\ }
 
