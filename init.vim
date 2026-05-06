@@ -34,7 +34,6 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'mason-org/mason-lspconfig.nvim'
 " Highlighting
 Plug 'sheerun/vim-polyglot'
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'pangloss/vim-javascript'
 " Completion
 Plug 'ms-jpq/coq_nvim'
@@ -101,7 +100,6 @@ let g:lightline = {
 			\ },
 			\ }
 
-" lua require('treesitter')
 lua require('indent_blankline')
 lua require('dap_config')
 lua require("dap-python").setup("python3")
@@ -188,7 +186,6 @@ let g:auto_save = 0
 let g:vimtex_view_method = 'zathura'
 "let g:vimtex_view_general_viewer = 'okular'
 "let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
-"
 
 augroup latexFile
     autocmd!
