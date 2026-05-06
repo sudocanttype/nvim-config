@@ -6,6 +6,7 @@ call plug#begin("~/.vim/plugged")
 Plug 'dracula/vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'itchyny/lightline.vim'
+Plug 'halkn/lightline-lsp'
 Plug 'lukas-reineke/indent-blankline.nvim'
 
 " File Navigation
@@ -28,10 +29,17 @@ Plug 'tpope/vim-obsession'
 Plug '907th/vim-auto-save'
 "
 " Language Support
+" LSP
+Plug 'mason-org/mason.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'mason-org/mason-lspconfig.nvim'
+" Highlighting
 Plug 'sheerun/vim-polyglot'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'pangloss/vim-javascript'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Completion
+Plug 'ms-jpq/coq_nvim'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lervag/vimtex'
 
 " Start-Up
@@ -82,16 +90,24 @@ let g:lightline = {
 			\   'left': [ [ 'mode', 'paste' ],
 			\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
 			\ },
-			\ 'component_function': {
-			\   'cocstatus': 'coc#status'
+			\ 'component': {
+			\   'lsp_warnings': 'lightline_lsp#warnings',
+			\   'lsp_errors':   'lightline_lsp#errors',
+			\   'lsp_ok':       'lightline_lsp#ok',
+			\ },
+			\ 'component_type': {
+			\   'lsp_warnings': 'warning',
+			\   'lsp_errors':   'error',
+			\   'lsp_ok':       'middle',
 			\ },
 			\ }
 
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-lua require('treesitter')
+" lua require('treesitter')
 lua require('indent_blankline')
 lua require('dap_config')
 lua require("dap-python").setup("python3")
+lua require("mason").setup()
+lua require("mason-lspconfig").setup()
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -148,28 +164,40 @@ let g:ale_pattern_options = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LANGUAGE SUPPORT
 
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+" inoremap <silent><expr> <TAB>
+"       \ coc#pum#visible() ? coc#pum#next(1) :
+"       \ CheckBackspace() ? "\<Tab>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+"                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+lua require("coq")
+let g:coq_settings = { 'auto_start': 'shut-up', "keymap.recommended": v:false }
+ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
+ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
+ino <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>"  : "\<BS>"
+ino <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
+ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
+
+
+" " Use <c-space> to trigger completion
+" if has('nvim')
+"   inoremap <silent><expr> <c-space> coc#refresh()
+" else
+"   inoremap <silent><expr> <c-@> coc#refresh()
+" endif
+
+
 
 hi Pmenu guibg=Green
 
@@ -237,7 +265,9 @@ let g:startify_custom_header =
 			\ 'startify#center(startify#fortune#cowsay())'
 
 let g:startify_bookmarks = [ {'c': '~/.config/nvim/init.vim'}]
-nnoremap <c-h> :Startify<CR>
+
+
+noremap <c-h> :Startify<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GENERAL REMAPS
