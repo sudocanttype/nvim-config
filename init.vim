@@ -37,7 +37,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'pangloss/vim-javascript'
 " Completion
 Plug 'ms-jpq/coq_nvim'
-" Plug 'neoclide/.nvim', {'branch': 'release'}
+Plug 'linux-cultist/venv-selector.nvim'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lervag/vimtex'
 
 " Start-Up
@@ -95,6 +96,7 @@ lua require('dap_config')
 lua require("dap-python").setup("python3")
 lua require("mason").setup()
 lua require("mason-lspconfig").setup()
+lua require("venv-selector").setup()
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -156,17 +158,21 @@ function! CheckBackspace() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:coq_settings = { 'auto_start': 'shut-up', "keymap.recommended": v:false }
-lua require("coq")
-ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
+
+
+" autocomplete coq settings
+let g:coq_settings = { 'auto_start': 'shut-up', "keymap.recommended": v:false , "keymap.jump_to_mark": v:null}
+ino <silent><expr> <Esc>   pumvisible() ? "\<CR><Esc>" : "\<Esc>"
 ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
 ino <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>"  : "\<BS>"
 ino <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
 ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
+" ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
+ino <silent><expr> <S-Tab> "\<Tab>"
+noremap <c-h> :Startify<CR>
 
 lua require("vim.diagnostic").enable(true)
-lua require("vim.diagnostic").config({ virtual_lines = true })
+" lua require("vim.diagnostic").config({ virtual_lines = true })
 
 
 hi Pmenu guibg=Green
